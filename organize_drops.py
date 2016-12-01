@@ -4,10 +4,7 @@ from os import path, makedirs
 from datetime import datetime, timedelta
 import shutil
 
-FOLDER = "C:\Users\Jake.Brinkmann\Dropbox"
-DAYS = 30 # previous days threshold
-FLDR_MAIN = '%Y' # Year number
-FLDR_SUB = 'W%V' # Week number
+import yaml
 
 class Organize():
     def __init__(self, folder):
@@ -48,4 +45,8 @@ def main(folder, days, nm_main, nm_sub):
 
 
 if __name__ == "__main__":
-    main(FOLDER, DAYS, FLDR_MAIN, FLDR_SUB)
+    with open('organizer.yml') as fid:
+        config = yaml.safe_load(fid)
+
+    main(config['folder'], config['days'],
+         config['fmt_root'], config['fmt_sub'])

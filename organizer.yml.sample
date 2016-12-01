@@ -1,0 +1,4 @@
+folder: "C:\\Users\\USER\\Dropbox"
+days: 30
+fmt_root: '%Y'
+fmt_sub: '%b'
