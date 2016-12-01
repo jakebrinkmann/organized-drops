@@ -16,11 +16,20 @@ To install the required package dependencies using pip:
 
 ## Usage
 
-When used from the command-line:
+Since the script should be run with some frequency, it can only be run using a
+configuration file (example: [organizer.yml.sample](./organizer.yml.sample)):
 
     cp organizer.yml.sample organizer.yml
     edit organizer.yml
+
+When used from the command-line:
+
     python oranize_drops.py -c organizer.yml
+
+There is also a `--dry-run` argument to prevent any actual file system
+operations:
+
+    python organize_drops.py -d -c organizer.yml
 
 ### results
 
