@@ -21,5 +21,5 @@ When used from the command-line:
 The results will be formatted in a tree:
 
     2016
-    |-- Week45
-    \-- Week46
+    |-- Apr
+    \-- Oct
