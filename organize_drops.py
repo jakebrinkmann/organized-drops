@@ -10,8 +10,14 @@ import yaml
 class Organize():
     def __init__(self, folder):
         # Find all files (modified dates, etc.)
+        if not path.exists(folder):
+            print('! Folder %s not found!' % folder)
+            exit(1)
         self.folder = folder
         filenames = glob(path.join(folder, '*'))
+        if ~len(filenames):
+            print('! No files found!')
+            exit(1)
         self.data = []
         for fn in filenames:
             mtime = datetime.fromtimestamp(path.getmtime(fn))
