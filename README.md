@@ -8,6 +8,12 @@ keep it more manageable.
 A python script to find files in a folder older than a certain date, and
 subsequently organize these files into a new folder hierarchy.
 
+## Install
+
+To install using pip:
+
+    pip install -r requirements.txt
+
 ## Usage
 
 When used from the command-line:
