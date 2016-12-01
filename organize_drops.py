@@ -2,6 +2,7 @@
 from glob import glob
 from os import path, makedirs
 from datetime import datetime, timedelta
+import argparse
 import shutil
 
 import yaml
@@ -45,7 +46,12 @@ def main(folder, days, nm_main, nm_sub):
 
 
 if __name__ == "__main__":
-    with open('organizer.yml') as fid:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--config', '-c', type=str, nargs=1,
+                        default='organizer.yml',
+                        help='yaml config file [%(default)s]')
+    args = parser.parse_args()
+    with open(args.config) as fid:
         config = yaml.safe_load(fid)
 
     main(config['folder'], config['days'],
