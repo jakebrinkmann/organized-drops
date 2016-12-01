@@ -51,8 +51,7 @@ def main(folder, days, nm_main, nm_sub, dry_run):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--config', '-c', type=str, nargs=1,
-                        default='organizer.yml',
+    parser.add_argument('--config', '-c', type=str, default='organizer.yml',
                         help='yaml config file [%(default)s]')
     parser.add_argument('--dry-run', '-d', action='store_true')
     args = parser.parse_args()
