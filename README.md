@@ -17,7 +17,7 @@ To install the required package dependencies using pip:
 ## Usage
 
 Since the script should be run with some frequency, it can only be run using a
-configuration file (example: [organizer.yml.sample](./organizer.yml.sample)):
+configuration file ([sample](./organizer.yml.sample)):
 
     cp organizer.yml.sample organizer.yml
     edit organizer.yml
