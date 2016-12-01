@@ -10,7 +10,7 @@ subsequently organize these files into a new folder hierarchy.
 
 ## Install
 
-To install using pip:
+To install the required package dependencies using pip:
 
     pip install -r requirements.txt
 
