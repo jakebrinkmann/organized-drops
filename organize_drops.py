@@ -7,6 +7,7 @@ import shutil
 
 import yaml
 
+
 class Organize():
     def __init__(self, folder):
         # Find all files (modified dates, etc.)
@@ -30,7 +31,10 @@ class Organize():
     def parse(self, threshold):
         # Determine new files destination
         cutoff = datetime.now() - timedelta(days=threshold)
-        parser = lambda x: x['modified'] < cutoff
+
+        def parser(x):
+            return x['modified'] < cutoff
+
         self.data = filter(parser, self.data)
 
     def move(self, root, sub, dry_run):
