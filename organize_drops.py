@@ -89,7 +89,11 @@ class Organize():
         for dset in self.data:
             root_i = dset['modified'].strftime(root)
             sub_i = dset['modified'].strftime(sub)
-            dest = path.join(self.folder, root_i, sub_i)
+            fdest = path.join(self.folder, root_i)
+            if path.abspath(fdest) == path.abspath(dset['filename']):
+                print('SKIP: %s' % path.basename(dset['filename']))
+                continue
+            dest = path.join(fdest, sub_i)
             if not path.exists(dest):
                 print('-- Make %s --' % dest)
                 if not dry_run:
