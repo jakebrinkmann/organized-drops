@@ -8,6 +8,54 @@ import shutil
 import yaml
 
 
+def get_file_stats(fname):
+    # Get the filename/modified of a local file
+    mtime = datetime.fromtimestamp(path.getmtime(fname))
+    ctime = datetime.fromtimestamp(path.getctime(fname))
+    dset = {'filename': fname,
+            'modified': mtime,
+            'created': ctime}
+    return dset
+
+
+def _dir(folder):
+    # Return top-level items in a directory
+    if path.isfile(folder):
+        return [folder]
+    else:
+        return glob(path.join(folder, '*'))
+
+
+def _walk(folder, depth=0, maxdepth=4):
+    # Return list of only files within root directory
+    files = _dir(folder)
+    type_f = []
+    for fn in files:
+        if depth > maxdepth:
+            return type_f
+        if not path.isfile(fn):
+            type_f += _walk(fn, depth+1, maxdepth)
+        else:
+            type_f.append(fn)
+    return type_f
+
+
+def get_most_recent(folder):
+    # Returns the results of `get_file_stats` for the most recently modfied
+    stats = []
+    files = _walk(folder)
+    if len(files):
+        for fn in files:
+            info = get_file_stats(fn)
+            stats.append(info)
+        maxtime = max([f['modified'] for f in stats])
+        dset = filter(lambda x: x['modified'] == maxtime, stats)[0]
+        dset.update({'filename': folder})
+        return dset
+    else:
+        return get_file_stats(folder)
+
+
 class Organize():
     def __init__(self, folder):
         # Find all files (modified dates, etc.)
@@ -22,11 +70,7 @@ class Organize():
             exit(1)
         self.data = []
         for fn in filenames:
-            mtime = datetime.fromtimestamp(path.getmtime(fn))
-            ctime = datetime.fromtimestamp(path.getctime(fn))
-            dset = {'filename': fn,
-                    'modified': mtime,
-                    'created': ctime}
+            dset = get_most_recent(fn)
             self.data.append(dset)
 
     def parse(self, threshold):
@@ -45,7 +89,11 @@ class Organize():
         for dset in self.data:
             root_i = dset['modified'].strftime(root)
             sub_i = dset['modified'].strftime(sub)
-            dest = path.join(self.folder, root_i, sub_i)
+            fdest = path.join(self.folder, root_i)
+            if path.abspath(fdest) == path.abspath(dset['filename']):
+                print('SKIP: %s' % path.basename(dset['filename']))
+                continue
+            dest = path.join(fdest, sub_i)
             if not path.exists(dest):
                 print('-- Make %s --' % dest)
                 if not dry_run:
