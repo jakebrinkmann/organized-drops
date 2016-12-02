@@ -16,7 +16,8 @@ class Organize():
             exit(1)
         self.folder = folder
         filenames = glob(path.join(folder, '*'))
-        if ~len(filenames):
+        print('Found %d files.' % len(filenames))
+        if len(filenames) < 1:
             print('! No files found!')
             exit(1)
         self.data = []
@@ -45,9 +46,11 @@ class Organize():
             root_i = dset['modified'].strftime(root)
             sub_i = dset['modified'].strftime(sub)
             dest = path.join(self.folder, root_i, sub_i)
-            if not path.exists(dest) and not dry_run:
-                makedirs(dest)
-            print('Moving "%s" to %s' %
+            if not path.exists(dest):
+                print('-- Make %s --' % dest)
+                if not dry_run:
+                    makedirs(dest)
+            print('Moving "%s" --> %s' %
                   (path.basename(dset['filename']), dest))
             if not dry_run:
                 shutil.move(dset['filename'], dest)
