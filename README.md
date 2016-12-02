@@ -35,6 +35,9 @@ operations:
 
 The results will be formatted in a tree:
 
-    2016
-    |-- Apr
-    \-- Oct
+    Dropbox/
+    ├── 2015
+    │   └── Feb
+    └── 2016
+        ├── Apr
+        └── Oct
