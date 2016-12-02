@@ -10,6 +10,14 @@ subsequently organize these files into a new folder hierarchy.
 
 ## Install
 
+To use this script, just download the _.py_ file and run with python. To clone
+the entire repository:
+
+    git clone https://github.com/jakebrinkmann/organized-drops.git
+    cd organized-drops
+
+### dependencies
+
 To install the required package dependencies using pip:
 
     pip install -r requirements.txt
